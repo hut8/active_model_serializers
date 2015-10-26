@@ -14,6 +14,7 @@ module Grape
 
           serializer_options[:context] = RequestContext.new(env['REQUEST_URI'],
                                                             env['rack.request.query_hash'])
+          return resource.to_json if Hash === resource
           ActiveModel::SerializableResource.new(resource, serializer_options).to_json(serializer_options)
         end
       end
